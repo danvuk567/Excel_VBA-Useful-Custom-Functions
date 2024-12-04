@@ -1,5 +1,7 @@
 # Excel VBA Useful Custom Functions
 
+(https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/Excel_VBA.jpg)
+
 Here are some useful functions that I have defined when working with common Excel VBA code requirements. 
 
 ## Importing Excel Files
