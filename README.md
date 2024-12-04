@@ -5,14 +5,14 @@
 Here are some useful functions that I have defined when working with common Excel VBA code requirements. 
 
 
-## Retrieving any higher Level Parent Folder Path
+## Retrieving any Higher Level Parent Folder Path
 
-This function can get a higher level folder path after specifying how many folders to go back from the folder specified. This can be useful in cases where the absolute path is not known such as when searching for the same folder in different locations.
+This function can get a higher level parent folder path after specifying how many folders to go back from the folder specified. This can be useful in cases where the absolute path is not known such as when searching for the same folder in different locations.
 
         ' curr_path: The path specified
-        ' num_subfolders_back: The number of prior subfolders specified
+        ' num_folders_back: The number of prior folders specified. Retrieves the current folder if num_folders_back = 0
 
-        Function Get_relative_path_start(curr_path As String, num_subfolders_back As Integer) As String
+        Function Get_relative_path_start(curr_path As String, num_folders_back As Integer) As String
             Dim i As Integer
             Dim slash_pos As Integer
     
@@ -23,9 +23,9 @@ This function can get a higher level folder path after specifying how many folde
 
             slash_pos = InStrRev(curr_path, "\")
     
-            ' Look for the path ending position for num_subfolders_back and store it in slash_pos
-            If num_subfolders_back <> 0 Then
-                For i = 1 To num_subfolders_back
+            ' Look for the path ending position for num_folders_back and store it in slash_pos
+            If num_folders_back <> 0 Then
+                For i = 1 To num_folders_back
                     slash_pos = InStrRev(curr_path, "\", slash_pos - 1)
                     If slash_pos = 0 Then
                         ' If there are no more slashes, return an empty string
