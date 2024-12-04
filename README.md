@@ -4,6 +4,42 @@
 
 Here are some useful functions that I have defined when working with common Excel VBA code requirements. 
 
+
+## Retrieving any higher Level Parent Folder Path
+
+This function can get a higher level folder path after specifying how many folders to go back from the folder specified. This can be useful in cases where the absolute path is not known such as when searching for the same folder in different locations.
+
+        ' curr_path: The path specified
+        ' num_subfolders_back: The number of prior subfolders specified
+
+        Function Get_relative_path_start(curr_path As String, num_subfolders_back As Integer) As String
+            Dim i As Integer
+            Dim slash_pos As Integer
+    
+            ' Ensure the path ends with a backslash
+            If Right(curr_path, 1) <> "\" Then
+                curr_path = curr_path + "\"
+            End If
+
+            slash_pos = InStrRev(curr_path, "\")
+    
+            ' Look for the path ending position for num_subfolders_back and store it in slash_pos
+            If num_subfolders_back <> 0 Then
+                For i = 1 To num_subfolders_back
+                    slash_pos = InStrRev(curr_path, "\", slash_pos - 1)
+                    If slash_pos = 0 Then
+                        ' If there are no more slashes, return an empty string
+                        Get_relative_path_start = ""
+                        Exit Function
+                    End If
+                Next i
+            End If
+    
+            ' Return the function as the left portion of curr_path before the postion slash_pos
+            Get_relative_path_start = Left(curr_path, slash_pos - 1)
+    
+        End Function
+
 ## Importing Excel Files
 
 The procedure *Import_excel_file* can be used when importing an external excel file (*.csv, *.xlsx, *.xlsm) into the current workbook sheet. It requires the file path that includes the file name, the source sheet no, the cell range of the source file, the current workbook sheet no, and the current sheet starting range.
