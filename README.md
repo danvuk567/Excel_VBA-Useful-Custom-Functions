@@ -1,6 +1,6 @@
 # Excel VBA Useful Custom Functions
 
-(https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/Excel_VBA.jpg)
+![Excel_VBA.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/Excel_VBA.jpg?raw=true)
 
 Here are some useful functions that I have defined when working with common Excel VBA code requirements. 
 
