@@ -1,4 +1,4 @@
-# Excel VBA Useful Functions
+# Excel VBA Useful Custom Functions
 
 Here are some useful functions that I have defined when working with common Excel VBA code requirements. 
 
