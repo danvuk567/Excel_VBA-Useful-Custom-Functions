@@ -341,7 +341,7 @@ Here is an example of a sheet with some data in our working excel file.
 
 ![sheet_before_import.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/sheet_before_import.jpg?raw=true)
 
-Here is an example of code using the functions oultined in #1 to #8 to search for the latest file in a higher parent folder, and importing that file in a sheet within the working excel file.
+Here is an example of code using the functions oultined in #1 to #8 to search for the latest file in a higher parent folder, and importing that file in a sheet within the current working excel file.
 
         Dim f_name As String
         Dim f_path As String
@@ -398,3 +398,36 @@ Here is an example of code using the functions oultined in #1 to #8 to search fo
 Here is the desired result after the import.
 
 ![sheet_after_import.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/sheet_after_import.jpg?raw=true)
+
+### 9. Save Excel Sheet to New Excel File
+
+The procedure *Save_to_new_excel_file* exports a sheet in the current working excel file to a new excel file. It also overwrites the file if it already exists.
+
+        ' curr_sheet: The current sheet (can be a name or sheet number)
+        ' f_path: The export file path including the file name
+
+        Sub Save_to_new_excel_file(curr_sheet As Variant, f_path As String)
+            Dim wb1 As Workbook
+            Dim wb2 As Workbook
+            Dim ws1 As Worksheet
+    
+            Set wb1 = ActiveWorkbook
+            Set ws1 = wb1.Sheets(curr_sheet)
+            ws1.Activate
+
+            ' Create a new workbook
+            Set wb2 = Workbooks.Add
+
+            ' Copy worksheet into the new workbook
+            ws1.Copy Before:=wb2.Sheets(1)
+
+            ' Save and close the new workbook
+            wb2.SaveAs Filename:=f_path
+            wb2.Close SaveChanges:=False
+    
+        End Sub
+
+A new file has been created as highlighted here.
+
+![new_file.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/new_file.jpg?raw=true)
+
