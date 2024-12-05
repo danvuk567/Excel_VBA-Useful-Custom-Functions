@@ -5,7 +5,7 @@
 Here are some useful functions that I have defined when working with common Excel VBA code requirements. 
 
 
-## 1. Retrieving any Higher Level Parent Folder Path
+### 1. Retrieving any Higher Level Parent Folder Path
 
 The function *Get_relative_path_start* can retrieve a higher level parent folder path after specifying how many folders to go back from the folder specified. This can be useful in cases where the absolute path is not known such as when searching for the same folder in different locations.
 
@@ -40,7 +40,7 @@ The function *Get_relative_path_start* can retrieve a higher level parent folder
     
         End Function
 
-## 2. Retrieve File Type List from a Folder Path
+### 2. Retrieve File Type List from a Folder Path
 
 The function *Get_directory_files* can retrieve a list of files from a folder path based on file name or file type. It stores the file names and timestamps in a 2-dimensional array.
 
@@ -92,7 +92,7 @@ The function *Get_directory_files* can retrieve a list of files from a folder pa
     
         End Function
 
-## 3. Sort List of files based on Timestamp
+### 3. Sort List of files based on Timestamp
 
 The function *Sort_files_by_date* sorts the file names in ascending or descending order within a 2-dimensional array based on timestamp. 
 
@@ -149,7 +149,7 @@ The function *Sort_files_by_date* sorts the file names in ascending or descendin
     
         End Function
 
-## 4. Importing Excel Files
+### 4. Importing Excel Files
 
 The procedure *Import_excel_file* can be used when importing an external excel file (*.csv, *.xlsx, *.xlsm) into the current workbook sheet. It requires the file path that includes the file name, the source sheet no, the cell range of the source file, the current workbook sheet no, and the current sheet starting range.
 
@@ -206,7 +206,7 @@ The procedure *Import_excel_file* can be used when importing an external excel f
 
         End Sub
 
-## 5. Search for Value in Excel File
+### 5. Search for Value in Excel File
 
 The function *Search_for_value* will search for a value such as text, number or blank in the column of an excel sheet. It returns the row number if it is found, otherwise it returns 0.
 
@@ -269,7 +269,7 @@ The function *Search_for_value* will search for a value such as text, number or 
 
         End Function
 
-## 6. Clear Section of Excel File
+### 6. Clear Section of Excel File
 
 The procedure *Clear_Section* will clear a section of an excel sheet based on the range of rows and columns specified.
 
