@@ -307,6 +307,10 @@ The procedure *Clear_Section* will clear a section of an excel sheet based on th
 
 ## Practical Example of using functions #1 to #6
 
+Here is an example of a sheet with some data in our working excel file.
+
+![Excel_VBA.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/Excel_VBA.jpg?raw=true)
+
 Here is an example of code using the functions oultined in #1 to #6 to search for the latest file in a higher parent folder, and importing that file in a sheet within the working excel file.
 
         Dim f_name As String
@@ -346,7 +350,7 @@ Here is an example of code using the functions oultined in #1 to #6 to search fo
         curr_sheet = "Sheet1"
         curr_row = 1
         curr_col = "A"
-        end_col = "B"
+        end_col = "G"
     
         ' Get the 1st row that is blank
         end_row = Search_for_value(curr_row, curr_sheet, curr_col, "")
@@ -357,5 +361,6 @@ Here is an example of code using the functions oultined in #1 to #6 to search fo
         ' Call Import_excel_file to copy/paste data into Sheet1 of this workbook
         Import_excel_file f_path, f_sheet, f_start_row, f_end_row, f_start_col, f_end_col, curr_sheet, curr_row, curr_col
 
+Here is the desired result after the import.
 
-
+![Excel_VBA.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/Excel_VBA.jpg?raw=true)
