@@ -42,7 +42,7 @@ This function can get a higher level parent folder path after specifying how man
 
 ## Retrieve File Type List from a Folder Path
 
-This function can retrieve a list of files from a folder path and based on file name or file type. It stores the file names and timestamps in an array.
+This function can retrieve a list of files from a folder path based on file name or file type. It stores the file names and timestamps in a 2-dimensional array.
 
                 ' file_name_type: The name and/or file type (ex: *.pdf)
                 ' file_path: The path to the folder containing the files
@@ -81,7 +81,7 @@ This function can retrieve a list of files from a folder path and based on file 
     
                     ReDim f_names_dates(0 To f_cnt - 1, 0 To 1)
         
-                    ' Store both names and dates in the f_names_dates array
+                    ' Store both names and dates in the f_names_dates 2-dimensional array
                     For i = 0 To f_cnt - 1
                         f_names_dates(i, 0) = f_names(i)
                         f_names_dates(i, 1) = f_dates(i)
@@ -92,6 +92,62 @@ This function can retrieve a list of files from a folder path and based on file 
     
                 End Function
 
+## Sort List of files based on Timestamp
+
+This function sorts the file names in ascending or descending order within a 2-dimensional array based on timestamp. 
+
+                ' f_names: A 2-dimensional array of filenames and their timestamps
+                ' sort_order: Sort order defined as ascending when True, and False when descending
+
+                Function Sort_files_by_date(f_names As Variant, sort_order As Boolean) As Variant
+                    Dim i As Integer
+                    Dim j As Integer
+                    Dim start_ind As Integer
+                    Dim end_ind As Integer
+                    Dim f_name_tmp As String
+                    Dim f_date_tmp As String
+                    Dim f_cnt As Integer
+    
+                    f_cnt = UBound(f_names, 1)
+    
+                    ' Check if the array has more than one element to sort
+                    If f_cnt > 0 Then
+                        For i = 0 To f_cnt - 1
+                            For j = i + 1 To f_cnt
+                                If IsDate(f_names(i, 1)) And IsDate(f_names(j, 1)) Then
+                                    f_date1 = CDate(f_names(i, 1))  ' Convert once to Date
+                                    f_date2 = CDate(f_names(j, 1))  ' Convert once to Date
+                
+                                    If sort_order Then
+                                        If f_date1 > f_date2 Then
+                                            ' Swap elements based on dates
+                                            f_name_tmp = f_names(i, 0)
+                                            f_date_tmp = f_names(i, 1)
+                                            f_names(i, 0) = f_names(j, 0)
+                                            f_names(i, 1) = f_names(j, 1)
+                                            f_names(j, 0) = f_name_tmp
+                                            f_names(j, 1) = f_date_tmp
+                                        End If
+                                    Else
+                                        If f_date1 < f_date2 Then
+                                            ' Swap elements based on dates
+                                            f_name_tmp = f_names(i, 0)
+                                            f_date_tmp = f_names(i, 1)
+                                            f_names(i, 0) = f_names(j, 0)
+                                            f_names(i, 1) = f_names(j, 1)
+                                            f_names(j, 0) = f_name_tmp
+                                            f_names(j, 1) = f_date_tmp
+                                        End If
+                                    End If
+                                End If
+                            Next j
+                        Next i
+                    End If
+    
+                    ' Return the sorted array f_names
+                    Sort_files_by_date = f_names
+    
+                End Function
 
 ## Importing Excel Files
 
