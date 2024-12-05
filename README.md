@@ -40,6 +40,59 @@ This function can get a higher level parent folder path after specifying how man
     
         End Function
 
+## Retrieve File Type List from a Folder Path
+
+This function can retrieve a list of files from a folder path and based on file name or file type. It stores the file names and timestamps in an array.
+
+                ' file_name_type: The name and/or file type (ex: *.pdf)
+                ' file_path: The path to the folder containing the files
+
+                Function Get_directory_files(file_name_type As String, f_path As String) As Variant
+                    Dim f_names() As Variant
+                    Dim f_dates() As Variant
+                    Dim file_names As String
+                    Dim f_cnt As Integer
+                    Dim f_names_dates() As Variant
+    
+                    ' Ensure the path ends with a backslash
+                    If Right(f_path, 1) <> "\" Then
+                        f_path = f_path + "\"
+                    End If
+    
+                    ' Get the first file in the folder
+                    file_names = Dir(f_path & file_name_type)
+    
+                    ' Get all files in the directory of file_names and store the names in the f_names array and the dates in the f_dates array
+                    f_cnt = 0
+                    Do While file_names <> ""
+                        f_cnt = f_cnt + 1
+                        ReDim Preserve f_names(0 To f_cnt - 1)
+                        ReDim Preserve f_dates(0 To f_cnt - 1)
+                        f_names(f_cnt - 1) = file_names
+                        f_dates(f_cnt - 1) = FileDateTime(f_path & "\" & file_names)
+                        file_names = Dir
+                    Loop
+    
+                    ' If no files found, return an empty array
+                    If f_cnt = 0 Then
+                        Get_directory_files = Array()
+                        Exit Function
+                    End If
+    
+                    ReDim f_names_dates(0 To f_cnt - 1, 0 To 1)
+        
+                    ' Store both names and dates in the f_names_dates array
+                    For i = 0 To f_cnt - 1
+                        f_names_dates(i, 0) = f_names(i)
+                        f_names_dates(i, 1) = f_dates(i)
+                    Next i
+    
+                    ' Return the the array f_names_dates
+                    Get_directory_files = f_names_dates
+    
+                End Function
+
+
 ## Importing Excel Files
 
 The procedure *Import_excel_file* can be used when importing an external excel file (*.csv, *.xlsx, *.xlsm) into the current workbook sheet. It requires the file path that includes the file name, the source sheet no, the cell range of the source file, the current workbook sheet no, and the current sheet starting range.
