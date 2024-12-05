@@ -305,7 +305,37 @@ The procedure *Clear_Section* will clear a section of an excel sheet based on th
             
         End Sub
 
-## Practical Example of using functions #1 to #6
+### 7. Temporarily Disable Excel Default Behavior
+
+The function *DisableApplication* will prevent certain default behavior that slows down excel when certain custom code is being interpreted.
+
+        Public Function DisableApplication()
+        
+            Application.EnableEvents = False
+            Application.EnableAnimations = False
+            Application.DisplayStatusBar = False
+            Application.Calculation = xlCalculationManual
+            Application.DisplayAlerts = False
+            
+        End Function
+
+
+### 8. Enable Excel Default Behavior
+
+The function *EnableApplication* will re-instate certain default behavior that was disabled with the funtion *DisableApplication*.
+
+        Public Function EnableApplication()
+
+            Application.EnableEvents = True
+            Application.EnableAnimations = True
+            Application.DisplayStatusBar = True
+            Application.Calculation = xlCalculationAutomatic
+            Application.DisplayAlerts = True
+
+        End Function
+        
+
+## Practical Example of using functions #1 to #8
 
 Here is an example of a sheet with some data in our working excel file.
 
@@ -327,6 +357,8 @@ Here is an example of code using the functions oultined in #1 to #6 to search fo
         Dim end_row As Integer
         Dim end_col As Variant
 
+        DisableApplication
+        
         ' Get the path to the Excel folder
         f_path = Get_relative_path_start(ThisWorkbook.Path, 1) & "\Excel\"
     
@@ -360,6 +392,8 @@ Here is an example of code using the functions oultined in #1 to #6 to search fo
     
         ' Call Import_excel_file to copy/paste data into Sheet1 of this workbook
         Import_excel_file f_path, f_sheet, f_start_row, f_end_row, f_start_col, f_end_col, curr_sheet, curr_row, curr_col
+
+        EnableApplication
 
 Here is the desired result after the import.
 
