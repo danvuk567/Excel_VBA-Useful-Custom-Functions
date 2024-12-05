@@ -309,7 +309,7 @@ The procedure *Clear_Section* will clear a section of an excel sheet based on th
 
 Here is an example of a sheet with some data in our working excel file.
 
-![Excel_VBA.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/Excel_VBA.jpg?raw=true)
+![sheet_before_import.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/sheet_before_import.jpg?raw=true)
 
 Here is an example of code using the functions oultined in #1 to #6 to search for the latest file in a higher parent folder, and importing that file in a sheet within the working excel file.
 
@@ -363,4 +363,4 @@ Here is an example of code using the functions oultined in #1 to #6 to search fo
 
 Here is the desired result after the import.
 
-![Excel_VBA.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/Excel_VBA.jpg?raw=true)
+![sheet_after_import.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/sheet_after_import.jpg?raw=true)
