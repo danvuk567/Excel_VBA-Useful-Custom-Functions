@@ -5,7 +5,7 @@
 Here are some useful functions that I have defined when working with common Excel VBA code requirements. 
 
 
-## Retrieving any Higher Level Parent Folder Path
+## 1. Retrieving any Higher Level Parent Folder Path
 
 The function *Get_relative_path_start* can retrieve a higher level parent folder path after specifying how many folders to go back from the folder specified. This can be useful in cases where the absolute path is not known such as when searching for the same folder in different locations.
 
@@ -40,7 +40,7 @@ The function *Get_relative_path_start* can retrieve a higher level parent folder
     
         End Function
 
-## Retrieve File Type List from a Folder Path
+## 2. Retrieve File Type List from a Folder Path
 
 The function *Get_directory_files* can retrieve a list of files from a folder path based on file name or file type. It stores the file names and timestamps in a 2-dimensional array.
 
@@ -92,7 +92,7 @@ The function *Get_directory_files* can retrieve a list of files from a folder pa
     
         End Function
 
-## Sort List of files based on Timestamp
+## 3. Sort List of files based on Timestamp
 
 The function *Sort_files_by_date* sorts the file names in ascending or descending order within a 2-dimensional array based on timestamp. 
 
@@ -149,7 +149,7 @@ The function *Sort_files_by_date* sorts the file names in ascending or descendin
     
         End Function
 
-## Importing Excel Files
+## 4. Importing Excel Files
 
 The procedure *Import_excel_file* can be used when importing an external excel file (*.csv, *.xlsx, *.xlsm) into the current workbook sheet. It requires the file path that includes the file name, the source sheet no, the cell range of the source file, the current workbook sheet no, and the current sheet starting range.
 
@@ -206,7 +206,7 @@ The procedure *Import_excel_file* can be used when importing an external excel f
 
         End Sub
 
-## Search for Value in Excel File
+## 5. Search for Value in Excel File
 
 The function *Search_for_value* will search for a value such as text, number or blank in the column of an excel sheet. It returns the row number if it is found, otherwise it returns 0.
 
@@ -269,9 +269,9 @@ The function *Search_for_value* will search for a value such as text, number or 
 
         End Function
 
-## Clear Section of Excel File
+## 6. Clear Section of Excel File
 
-The function *Clear_Section* will clear a section of an Excel sheet based on the range of rows and columns specified.
+The procedure *Clear_Section* will clear a section of an excel sheet based on the range of rows and columns specified.
 
         ' start_row: The starting row within range to clear
         ' end_row: The last row within range to clear
@@ -304,3 +304,58 @@ The function *Clear_Section* will clear a section of an Excel sheet based on the
             End If
             
         End Sub
+
+## Practical Example of using functions #1 to #6
+
+Here is an example of code using the functions oultined in #1 to #6 to search for the latest file in a higher parent folder, and importing that file in a sheet within the working excel file.
+
+        Dim f_name As String
+        Dim f_path As String
+        Dim get_files As Variant
+        Dim f_sheet As Variant
+        Dim f_start_row As Integer
+        Dim f_start_col As Variant
+        Dim f_end_col As Variant
+        Dim curr_sheet As Variant
+        Dim curr_col As Variant
+        Dim f_end_row As Integer
+        Dim curr_row As Integer
+        Dim end_row As Integer
+        Dim end_col As Variant
+
+        ' Get the path to the Excel folder
+        f_path = Get_relative_path_start(ThisWorkbook.Path, 1) & "\Excel\"
+    
+        ' Retrieve the excel files of type *.xlsx
+        get_files = Get_directory_files("*xlsx", f_path)
+    
+        ' Sort the files in descending order
+        get_files = Sort_files_by_date(get_files, False)
+    
+        ' Retrieve the first file which is the latest file
+        f_path = f_path & get_files(0, 0)
+    
+        ' Set copy paremeters as first sheet, 2nd to 11th row of column A to B
+        f_sheet = 1
+        f_start_row = 2
+        f_end_row = 11
+        f_start_col = "A"
+        f_end_col = "B"
+    
+        ' Set paste parameters as Sheet1, 1st row of column A
+        curr_sheet = "Sheet1"
+        curr_row = 1
+        curr_col = "A"
+        end_col = "B"
+    
+        ' Get the 1st row that is blank
+        end_row = Search_for_value(curr_row, curr_sheet, curr_col, "")
+
+        ' Clear the section where data will be imported including any rows that might not be overwritten
+        Clear_Section curr_row, end_row - 1, curr_col, end_col
+    
+        ' Call Import_excel_file to copy/paste data into Sheet1 of this workbook
+        Import_excel_file f_path, f_sheet, f_start_row, f_end_row, f_start_col, f_end_col, curr_sheet, curr_row, curr_col
+
+
+
