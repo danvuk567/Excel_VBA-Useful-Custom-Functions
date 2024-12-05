@@ -96,22 +96,22 @@ This function can retrieve a list of files from a folder path based on file name
 
 This function sorts the file names in ascending or descending order within a 2-dimensional array based on timestamp. 
 
-                ' f_names: A 2-dimensional array of filenames and their timestamps
-                ' sort_order: Sort order defined as ascending when True, and False when descending
+        ' f_names: A 2-dimensional array of filenames and their timestamps
+        ' sort_order: Sort order defined as ascending when True, and False when descending
 
-                Function Sort_files_by_date(f_names As Variant, sort_order As Boolean) As Variant
-                    Dim i As Integer
-                    Dim j As Integer
-                    Dim start_ind As Integer
-                    Dim end_ind As Integer
-                    Dim f_name_tmp As String
-                    Dim f_date_tmp As String
-                    Dim f_cnt As Integer
+        Function Sort_files_by_date(f_names As Variant, sort_order As Boolean) As Variant
+                Dim i As Integer
+                Dim j As Integer
+                Dim start_ind As Integer
+                Dim end_ind As Integer
+                Dim f_name_tmp As String
+                Dim f_date_tmp As String
+                Dim f_cnt As Integer
     
-                    f_cnt = UBound(f_names, 1)
+                f_cnt = UBound(f_names, 1)
     
-                    ' Check if the array has more than one element to sort
-                    If f_cnt > 0 Then
+                ' Check if the array has more than one element to sort
+                If f_cnt > 0 Then
                         For i = 0 To f_cnt - 1
                             For j = i + 1 To f_cnt
                                 If IsDate(f_names(i, 1)) And IsDate(f_names(j, 1)) Then
@@ -142,12 +142,12 @@ This function sorts the file names in ascending or descending order within a 2-d
                                 End If
                             Next j
                         Next i
-                    End If
+                End If
     
-                    ' Return the sorted array f_names
-                    Sort_files_by_date = f_names
+                ' Return the sorted array f_names
+                Sort_files_by_date = f_names
     
-                End Function
+        End Function
 
 ## Importing Excel Files
 
