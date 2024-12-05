@@ -7,7 +7,7 @@ Here are some useful functions that I have defined when working with common Exce
 
 ## Retrieving any Higher Level Parent Folder Path
 
-This function can get a higher level parent folder path after specifying how many folders to go back from the folder specified. This can be useful in cases where the absolute path is not known such as when searching for the same folder in different locations.
+The function *Get_relative_path_start* can retrieve a higher level parent folder path after specifying how many folders to go back from the folder specified. This can be useful in cases where the absolute path is not known such as when searching for the same folder in different locations.
 
         ' curr_path: The path specified
         ' num_folders_back: The number of prior folders specified. Retrieves the current folder if num_folders_back = 0
@@ -42,7 +42,7 @@ This function can get a higher level parent folder path after specifying how man
 
 ## Retrieve File Type List from a Folder Path
 
-This function can retrieve a list of files from a folder path based on file name or file type. It stores the file names and timestamps in a 2-dimensional array.
+The function *Get_directory_files* can retrieve a list of files from a folder path based on file name or file type. It stores the file names and timestamps in a 2-dimensional array.
 
         ' file_name_type: The name and/or file type (ex: *.pdf)
         ' file_path: The path to the folder containing the files
@@ -94,7 +94,7 @@ This function can retrieve a list of files from a folder path based on file name
 
 ## Sort List of files based on Timestamp
 
-This function sorts the file names in ascending or descending order within a 2-dimensional array based on timestamp. 
+The function *Sort_files_by_date* sorts the file names in ascending or descending order within a 2-dimensional array based on timestamp. 
 
         ' f_names: A 2-dimensional array of filenames and their timestamps
         ' sort_order: Sort order defined as ascending when True, and False when descending
@@ -204,4 +204,103 @@ The procedure *Import_excel_file* can be used when importing an external excel f
                 ' Close the external workbook without saving
                 wb2.Close SaveChanges:=False
 
+        End Sub
+
+## Search for Value in Excel File
+
+The function *Search_for_value* will search for a value such as text, number or blank in the column of an excel sheet. It returns the row number if it is found, otherwise it returns 0.
+
+        ' start_row: The starting row to start search
+        ' curr_sheet: The current sheet (can be a name or sheet number)
+        ' curr_col: The current sheet search column as an index or letter (ex: 1 or A)
+        ' search_val: The value to search for such as text, number or blank
+
+        Function Search_for_value(start_row As Integer, curr_sheet As Variant, curr_col As Variant, search_val As Variant) As Variant
+            Dim wb1 As Workbook
+            Dim ws1 As Worksheet
+            Dim row_cnt As Integer
+            Dim NotFound As Boolean
+            Dim col_type As String
+            Dim cell_value As Variant
+
+            Set wb1 = ActiveWorkbook
+            Set ws1 = wb1.Sheets(curr_sheet)
+    
+            ' Check if the column label being passed is a string type as column letter or number type as column index
+            If VarType(curr_col) = vbString Then
+                    col_type = "string"
+            Else
+                    col_type = "number"
+            End If
+
+            ws1.Activate
+            NotFound = True
+            row_cnt = start_row - 1
+
+            ' Loop until we find the value
+            Do While NotFound
+                row_cnt = row_cnt + 1
+
+                ' Use letter and row as cell reference in Range if col_type is string
+                If col_type = "string" Then
+                    cell_value = ws1.Range(curr_col & row_cnt).Value
+                Else
+                    cell_value = ws1.Cells(row_cnt, curr_col).Value
+                End If
+
+                ' Exit the loop if the current cell matches the search value (including blank match)
+                If cell_value = search_val Then
+                    NotFound = False
+                End If
+        
+                ' Exit the loop if the current cell is blank and search value was not a blank
+                If (search_val <> "") And (cell_value = "") Then
+                    NotFound = False
+                End If
+        
+            Loop
+
+            ' Return 0 if no match found for non-blank search
+            If (search_val <> "") And (cell_value = "") Then
+                Search_for_value = 0
+            Else
+                Search_for_value = row_cnt
+            End If
+
+        End Function
+
+## Clear Section of Excel File
+
+The function *Clear_Section* will clear a section of an Excel sheet based on the range of rows and columns specified.
+
+        ' start_row: The starting row within range to clear
+        ' end_row: The last row within range to clear
+        ' start_col: The starting column index or column letter within range to clear
+        ' end_col: The ending column index or column letter within range to clear
+
+        Sub Clear_Section(start_row As Integer, end_row As Integer, start_col As Variant, end_col As Variant)
+            Dim wb1 As Workbook
+            Dim ws1 As Worksheet
+    
+            Set wb1 = ActiveWorkbook
+            Set ws1 = wb1.ActiveSheet
+    
+            ' Check if the column lable being passed is a string type as column letter or number type as column index
+            If VarType(start_col) = vbString Then
+                    col_type = "string"
+            Else
+                    col_type = "number"
+            End If
+
+            ' Clear rows only if they are not already cleared
+            If end_row > start_row Then
+                ' Use letter and row as cell reference in Range if col_type is string to clear contents
+                If col_type = "string" Then
+                    ws1.Range(start_col & start_row & ":" & end_col & end_row).ClearContents
+                ' Use Cell index in Range if col_type is number to clear contents
+                Else
+                    ws1.Range(ws1.Cells(start_row, start_col), ws1.Cells(end_row, end_col)).ClearContents
+                End If
+            End If
+            
         End Sub
