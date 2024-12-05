@@ -341,7 +341,7 @@ Here is an example of a sheet with some data in our working excel file.
 
 ![sheet_before_import.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/sheet_before_import.jpg?raw=true)
 
-Here is an example of code using the functions oultined in #1 to #6 to search for the latest file in a higher parent folder, and importing that file in a sheet within the working excel file.
+Here is an example of code using the functions oultined in #1 to #8 to search for the latest file in a higher parent folder, and importing that file in a sheet within the working excel file.
 
         Dim f_name As String
         Dim f_path As String
