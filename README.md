@@ -429,5 +429,7 @@ The procedure *Save_to_new_excel_file* exports a sheet in the current working ex
 
 A new file has been created as highlighted here.
 
-![new_file.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/new_file.jpg?raw=true)
+![new_file.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/new_file.jpg?raw=true)<br/><br/>
+
+:arrow_right: **Back to:** [Main Page](https://github.com/danvuk567/SQL-Fundamentals-and-Best-Practices)
 
