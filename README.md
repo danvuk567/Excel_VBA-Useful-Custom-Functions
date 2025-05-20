@@ -431,5 +431,5 @@ A new file has been created as highlighted here.
 
 ![new_file.jpg](https://github.com/danvuk567/Excel_VBA-Useful-Custom-Functions/blob/main/images/new_file.jpg?raw=true)<br/><br/>
 
-:arrow_right: **Back to:** [Main Page](https://github.com/danvuk567/SQL-Fundamentals-and-Best-Practices)
+:arrow_right: **Back to:** [Main Page](https://github.com/danvuk567)
 
